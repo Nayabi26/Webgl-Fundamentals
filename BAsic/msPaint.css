@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+ margin:0;
+}
+/*#wrapper
+{
+    width:100%;
+    height:100vh;
+    border:2px solid darkblue;
+    position: relative;
+}*/
+/* Absolute will change position based on its parental or ancestor  but relative will change according to its own position*/
+#paint-canvas
+{
+   
+ 
+ 
+    border:1px solid black;
+   
+   
+}

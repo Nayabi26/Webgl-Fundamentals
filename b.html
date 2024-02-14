@@ -1,0 +1,83 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Paint</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="paintCanvas" width="800" height="600"></canvas>
+    <div>
+        <label for="colorPicker">Color:</label>
+        <input type="color" id="colorPicker">
+        <button id="pencilBtn">Pencil</button>
+        <button id="eraserBtn">Eraser</button>
+        <!-- Add more tools/buttons as needed -->
+    </div>
+    <script>
+        // Get canvas element and its context
+        var canvas = document.getElementById("paintCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // Set initial drawing settings
+        var isDrawing = false;
+        var currentTool = "pencil";
+        var currentColor = "#000000";
+
+        // Function to handle mouse down event
+        function handleMouseDown(event) {
+            isDrawing = true;
+            var x = event.pageX - canvas.offsetLeft;
+            var y = event.pageY - canvas.offsetTop;
+            console.log("start:",x)
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        // Function to handle mouse move event
+        function handleMouseMove(event) {
+            if (isDrawing) {
+                var x = event.pageX - canvas.offsetLeft;
+                var y = event.pageY - canvas.offsetTop;
+                if (currentTool === "pencil" || currentTool === "eraser") {
+                  
+                    ctx.lineTo(x, y);
+                    ctx.strokeStyle = currentTool === "pencil" ? currentColor : "#FFFFFF";
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Function to handle mouse up event
+        function handleMouseUp() {
+            isDrawing = false;
+        }
+
+        // Function to handle color change
+        document.getElementById("colorPicker").addEventListener("change", function(event) {
+            currentColor = event.target.value;
+        });
+
+        // Function to handle tool selection
+        document.getElementById("pencilBtn").addEventListener("click", function() {
+            currentTool = "pencil";
+        });
+
+        document.getElementById("eraserBtn").addEventListener("click", function() {
+            currentTool = "eraser";
+        });
+
+        // Add event listeners for mouse events
+        canvas.addEventListener("mousedown", handleMouseDown);
+        canvas.addEventListener("mousemove", handleMouseMove);
+        canvas.addEventListener("mouseup", handleMouseUp);
+    </script>
+</body>
+</html>
+
